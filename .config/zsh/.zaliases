@@ -134,21 +134,6 @@ fi
 # fix emulator
 alias emulator='/opt/android-sdk/tools/emulator'
 
-# fix fcitx5
-# alias reinput='killall fcitx5; fcitx5 &'
-
-## Projects/Helpers
-
-# ddnet time
-#alias ddtime='~/projects/ddtime/ddtime.sh'
-
-# PDF,JPG,PNG to ODT or ODS
-#alias pdf2odt="~/projects/pdf2odt/pdf2odt"
-
-# echo360 helpers
-#alias echo360="~/projects/echo360/run.sh"
-#alias echo360Helper="~/projects/echo360/echoDlHelper.sh"
-
 # automerge folders
 #alias automerge=~/projects/Dubly/src/automerge.py
 #alias duply=~/projects/Dubly/src/dubly.py
