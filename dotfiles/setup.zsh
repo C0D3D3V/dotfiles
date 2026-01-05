@@ -1,6 +1,13 @@
 #!/usr/bin/env zsh
 cd "$HOME" || exit
-git clone --recursive --jobs 8 --bare https://github.com/C0D3D3V/dotfiles.git "$HOME/.cfg"
+
+cfg_dir="$HOME/.cfg"
+if [ -d "$cfg_dir" ] && [ "$(ls -A "$cfg_dir" 2>/dev/null | wc -l)" -gt 0 ]; then
+  echo "dotfiles are already installed, use \`cfg pull\` to update" >&2
+  exit 1
+fi
+
+git clone --recursive --jobs 8 --bare https://github.com/C0D3D3V/dotfiles.git "$cfg_dir"
 
 function cfg {
    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
@@ -9,7 +16,6 @@ function cfg {
 # backup
 BACKUP_DIR=".dotfiles-backup"
 mkdir -p "$BACKUP_DIR"
-mv .antigen "$BACKUP_DIR" &>/dev/null
 if cfg checkout &>/dev/null; then
   echo "Checked out dotfiles."
 else
