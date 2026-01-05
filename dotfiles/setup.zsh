@@ -8,7 +8,7 @@ function cfg {
 }
 
 if [ -d "$cfg_dir" ] && [ "$(ls -A "$cfg_dir" 2>/dev/null | wc -l)" -gt 0 ]; then
-  echo "Dotfiles are already installed. Instead they will be updated using: \`cfg pull\`" >&2
+  echo "Dotfiles are already installed. Instead, they are updated with the following command: \`cfg pull\`" >&2
   cfg pull
 else
   git clone --recursive --jobs 8 --bare https://github.com/C0D3D3V/dotfiles.git "$cfg_dir"
@@ -32,7 +32,7 @@ else
 fi
 
 if [ -d "$cfg_dir" ] && [ "$(ls -A "$cfg_dir" 2>/dev/null | wc -l)" -gt 0 ]; then
-  echo "Vim configuration is already installed, updating it using \`git -C  ~/.vim_runtime pull\` to update" >&2
+  echo "Vim configuration is already installed. Instead, it is now updated with the following command \`git -C  ~/.vim_runtime pull\`" >&2
   git -C  ~/.vim_runtime pull
 else
   git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
