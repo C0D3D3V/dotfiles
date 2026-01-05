@@ -2,29 +2,39 @@
 cd "$HOME" || exit
 
 cfg_dir="$HOME/.cfg"
-if [ -d "$cfg_dir" ] && [ "$(ls -A "$cfg_dir" 2>/dev/null | wc -l)" -gt 0 ]; then
-  echo "dotfiles are already installed, use \`cfg pull\` to update" >&2
-  exit 1
-fi
-
-git clone --recursive --jobs 8 --bare https://github.com/C0D3D3V/dotfiles.git "$cfg_dir"
 
 function cfg {
-   /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+  /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
 }
 
-# backup
-BACKUP_DIR=".dotfiles-backup"
-mkdir -p "$BACKUP_DIR"
-if cfg checkout &>/dev/null; then
-  echo "Checked out dotfiles."
+if [ -d "$cfg_dir" ] && [ "$(ls -A "$cfg_dir" 2>/dev/null | wc -l)" -gt 0 ]; then
+  echo "Dotfiles are already installed. Instead they will be updated using: \`cfg pull\`" >&2
+  cfg pull
 else
-  cfg checkout 2>&1 | awk -F '\t' '/\t/ {print $2}' >"$BACKUP_DIR/BACKUP_FILE_LIST"
-  echo "Backing up $(wc -l <$BACKUP_DIR/BACKUP_FILE_LIST) pre-existing dot files."
-  xargs -I{} dirname $BACKUP_DIR/{} <"$BACKUP_DIR/BACKUP_FILE_LIST" | xargs -I{} mkdir -p {}
-  xargs -I{} mv {} $BACKUP_DIR/{} <"$BACKUP_DIR/BACKUP_FILE_LIST"
+  git clone --recursive --jobs 8 --bare https://github.com/C0D3D3V/dotfiles.git "$cfg_dir"
+
+
+  # backup
+  BACKUP_DIR=".dotfiles-backup"
+  mkdir -p "$BACKUP_DIR"
+  if cfg checkout &>/dev/null; then
+    echo "Checked out dotfiles."
+  else
+    cfg checkout 2>&1 | awk -F '\t' '/\t/ {print $2}' >"$BACKUP_DIR/BACKUP_FILE_LIST"
+    echo "Backing up $(wc -l <$BACKUP_DIR/BACKUP_FILE_LIST) pre-existing dot files."
+    xargs -I{} dirname $BACKUP_DIR/{} <"$BACKUP_DIR/BACKUP_FILE_LIST" | xargs -I{} mkdir -p {}
+    xargs -I{} mv {} $BACKUP_DIR/{} <"$BACKUP_DIR/BACKUP_FILE_LIST"
+  fi
+
+  cfg checkout
+  cfg config status.showUntrackedFiles no
+  cfg submodule update --init --recursive --jobs 8
 fi
 
-cfg checkout
-cfg config status.showUntrackedFiles no
-cfg submodule update --init --recursive --jobs 8
+if [ -d "$cfg_dir" ] && [ "$(ls -A "$cfg_dir" 2>/dev/null | wc -l)" -gt 0 ]; then
+  echo "Vim configuration is already installed, updating it using \`git -C  ~/.vim_runtime pull\` to update" >&2
+  git -C  ~/.vim_runtime pull
+else
+  git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+  sh ~/.vim_runtime/install_awesome_vimrc.sh
+fi
