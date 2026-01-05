@@ -31,7 +31,7 @@ else
   cfg submodule update --init --recursive --jobs 8
 fi
 
-if [ -d "~/.vim_runtime" ] && [ "$(ls -A "~/.vim_runtime" 2>/dev/null | wc -l)" -gt 0 ]; then
+if [ -d "$HOME/.vim_runtime" ] && [ "$(ls -A "$HOME/.vim_runtime" 2>/dev/null | wc -l)" -gt 0 ]; then
   echo "Vim configuration is already installed. Instead, it is now updated with the following command \`git -C  ~/.vim_runtime pull\`" >&2
   git -C  ~/.vim_runtime pull
 else
