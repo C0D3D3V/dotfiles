@@ -1,0 +1,38 @@
+/* vim:ft=css
+ * {infoMsg}
+ * Rofi version: 1.7.2
+ */
+
+* {{
+    bg:                     #{color0.strip}aa;
+
+    normal-bg:              #{color0.strip}00; //transparency last two hex
+    alternate-normal-bg:    @normal-bg;
+    selected-normal-bg:     {color1};
+
+    active-bg:              {color0};
+    alternate-active-bg:    @active-bg;
+    selected-active-bg:     @selected-normal-bg;
+
+    urgent-bg:              @active-bg;
+    alternate-urgent-bg:    @urgent-bg;
+    selected-urgent-bg:     @selected-normal-bg;
+
+
+    fg:                     {color15};
+
+    normal-fg:              @fg;
+    alternate-normal-fg:    @normal-fg;
+    selected-normal-fg:     @fg;
+
+    active-fg:              {active};
+    alternate-active-fg:    @active-fg;
+    selected-active-fg:     @active-fg;
+
+    urgent-fg:              {color7};
+    alternate-urgent-fg:    @urgent-fg;
+    selected-urgent-fg:     @urgent-fg;
+
+    bg-color:               #00000000;
+    border-color:           #{inactive.strip}aa;
+}}

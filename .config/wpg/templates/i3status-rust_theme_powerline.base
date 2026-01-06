@@ -1,0 +1,18 @@
+# This file will get overwritten by wpgtk because there is a template file under ~/.config/wpg/templates/
+
+
+alternating_tint_bg = "#22222200"
+#alternating_tint_fg = "#22222200"
+critical_bg = "#a6e22e" ###red
+critical_fg = "#272822" ###base03
+good_bg = "#f8f8f2" ###green
+good_fg = "#272822" ###base03
+idle_bg = "#272822" ###base03
+idle_fg = "#a1efe4" ###base1
+info_bg = "#8fcbcb" ###blue
+info_fg = "#272822" ###base03
+separator = "\ue0b2"
+separator_bg = "auto"
+separator_fg = "auto"
+warning_bg = "#fffc80" ###yellow
+warning_fg = "#272822" ###base03

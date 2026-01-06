@@ -1,0 +1,46 @@
+# {infoMsg}
+
+# i3 config file (v4)
+#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+
+######### INCLUDES #########
+
+include config.d/*.conf
+
+
+######### VARIABLES #########
+
+set $mod Mod4
+set $alt Mod1
+set $terminal kitty
+
+## WORKSPACES
+# set  $ws0  "0:"
+# set  $ws1  "1:"
+# set  $ws2  "2:"
+# set  $ws3  "3:"
+# set  $ws4  "4:"
+# set  $ws5  "5:"
+# set  $ws6  "6:"
+# set  $ws7  "7:"
+# set  $ws8  "8:"
+# set  $ws9  "9:"
+# set $ws10 "10:"
+# set $ws11 "11:"
+# set $ws12 "12:"
+
+## WPGTK VARIABLES
+set $coloract "{active}"
+set $colorin "{inactive}"
+set $borderSize {borderSize}
+set_from_resource $color15 i3wm.color15 "{color15}"
+set_from_resource $split i3wm.color10 "{color10}"
+set_from_resource $coloru i3wm.color7 "{color7}"
+set_from_resource $color0 i3wm.color0 "{color0}"
+set_from_resource $color8 i3wm.color8 "{color8}"
+
+set $fontawesome {fontawesome}
+set $fontmono {fontmono}
+set $fontsans {fontsans}
