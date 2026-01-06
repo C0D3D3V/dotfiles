@@ -1,0 +1,75 @@
+# See https://github.com/greshake/i3status-rust/blob/master/NEWS.md for needed changes
+# Infos: https://greshake.github.io/i3status-rust/i3status_rs/index.html
+
+[theme]
+theme = "wpg_plain.toml"
+# theme = "wpg_powerline.toml" # needs nerd font as $fontmono in wpgtk
+
+[icons]
+icons = "material-nf"
+[icons.overrides]
+# https://github.com/greshake/i3status-rust/blob/6a547dbcbba3bbc622a29457026ddcb180521f82/files/icons/emoji.toml
+
+
+[[block]]
+block = "music"
+[block.format]
+full = "$play|"
+short = "$play|"
+[[block.click]]
+button = "middle"
+cmd = "killall spotify -s9"
+
+[[block]]
+block = "sound"
+# set default device to current running sink, so the statusbar shows the volume of the current running sink
+headphones_indicator = true
+show_volume_when_muted = true
+[[block.click]]
+button = "left"
+cmd = "~/.config/i3status-rust/toggle-app.py --class pavucontrol --floating"
+# cmd = "pactlset-default-sink$(pactllistsinksshort|grepRUNNING|head-n1|cut-f2);~/.config/i3status-rust/toggle-app.py --class pavucontrol --floating"
+
+[[block]]
+block = "sound"
+device_kind = "source"
+[[block.click]]
+button = "left"
+cmd = "~/.config/i3/mute-mics.zsh"
+
+[[block]]
+block = "backlight"
+# invert_icons = true
+
+[[block]]
+block = "battery"
+device = "DisplayDevice"
+driver = "upower"
+# format = "{$percentage} {$power} {$time}"
+# full_format = "{$percentage} {$power}"
+# full_threshold = 99
+full_format = ""
+missing_format = ""
+ 
+[[block]]
+block = "time"
+format = "$icon $timestamp.datetime(f:'%a %d.%m %H:%M:%S', l:de_DE)"
+interval = 1
+[[block.click]]
+button = "left"
+cmd = "~/.config/i3status-rust/toggle-app.py --class evolution --title '(K|C)alend(e|a)r(.+Evolution)?' --floating --exec 'org.gnome.Evolution -c calendar'"
+
+# needs dunst >= v1.6.0
+[[block]]
+block = "notify"
+if_command = "dunstctl is-paused"
+
+#[[block]]
+# block = "pomodoro"
+# # break_length = 5
+# # length = 25
+# break_message = "Back to work!"
+# message = "Take a break!"
+# notify_cmd = "notify-send"
+
+

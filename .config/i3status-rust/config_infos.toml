@@ -1,0 +1,124 @@
+# See https://github.com/greshake/i3status-rust/blob/master/NEWS.md for needed changes
+# Infos: https://greshake.github.io/i3status-rust/i3status_rs/index.html
+
+[theme]
+theme = "wpg_plain.toml"
+# theme = "wpg_powerline.toml" # needs nerd font as $fontmono in wpgtk
+
+[icons]
+icons = "awesome6"
+# [icons.overrides]
+# weather_sun = "\ufa98"
+
+[[block]]
+block = "focused_window"
+[block.format]
+full = "$title.str(max_w:25, rot_interval:0.2)|"
+short = "$title.str(max_w:10, rot_interval:0.2)|"
+
+[[block]]
+block = "music"
+#hide_when_empty = true
+# interface_name_exclude = [".*kdeconnect.*", "mpd"]
+[block.format]
+full = "$combo.str(max_w:20, rot_interval:0.2) $play $avail.eng(w:0)|"
+short = "$combo.str(max_w:15, rot_interval:0.2)$play$avail.eng(w:0)|"
+[[block.click]]
+button = "left" 
+cmd = "next" # not working :( https://github.com/greshake/i3status-rust/issues/1610
+[[block.click]]
+button = "middle"
+cmd = "killall spotify -s9"
+
+# [[block]]
+# block = "docker"
+# format = "$running/$total"
+# interval = 2
+
+[[block]]
+block = "cpu"
+format_alt = "$utilization.bar()"
+interval = 1
+[[block.click]]
+button = "right"
+cmd = "~/.config/i3status-rust/toggle-app.py --class kitty --title 'htop-floating' --floating --exec 'kitty --title htop-floating -- htop'"
+
+[[block]]
+alert = 10.0 # %
+block = "disk_space" 
+format = "$icon $available.eng(w:3, u:B, p:G)" # TeraBytes with 3 digits
+info_type = "available" 
+interval = 20 
+warning = 20.0 # %
+[[block.click]]
+button = "left"
+cmd = "qdirstat"
+[[block.click]]
+button = "right"
+update = true
+
+[[block]]
+block = "custom"
+command = "~/.config/i3status-rust/psi.py io"
+hide_when_empty = true
+interval = 1
+json = true
+[[block.click]]
+button = "left"
+cmd = "~/.config/i3status-rust/toggle-app.py --class kitty --title 'htop-floating' --floating --exec 'kitty --title htop-floating -- htop'"
+
+[[block]]
+block = "memory"
+format = "$icon $mem_used_percents"
+format_alt = "$icon_swap $swap_used_percents"
+
+[[block]]
+block = "custom"
+command = "~/.config/i3status-rust/psi.py memory"
+hide_when_empty = true
+interval = 1
+json = true
+[[block.click]]
+button = "left"
+cmd = "~/.config/i3status-rust/toggle-app.py --class kitty --title 'htop-floating' --floating --exec 'kitty --title htop-floating -- htop'"
+
+# [[block]]
+# block = "custom"
+# command = "pacmd list-sinks | sed '/*index:/{N;s/.*\\n//;s/\\W*name:.*\\.\\(.*\\)>/\\1/;p};d;'"
+# interval = "once"
+# [[block.click]]
+# button = "left"
+# cmd = "pactl set-default-sink $(pactl list sinks short | grep RUNNING | head -n1 | cut -f2) && pacmd list-sinks | sed '/*index:/{N;s/.*\\n//;s/\\W*name:.*\\.\\(.*\\)>/\\1/;p};d;'"
+
+
+[[block]]
+block = "net" 
+format = "$icon {$signal_strength.bar(w:1)|}$speed_up.eng(w:3,u:B,p:K) $speed_down.eng(w:3,u:B,p:K)" # fixed length
+format_alt = "$speed_up.eng(w:0,u:B,p:K) $speed_down.eng(w:0,u:B,p:K)" # dynamic length
+[[block.click]]
+button = "right"
+cmd = "~/.config/i3status-rust/toggle-app.py --class org.gnome.Settings --exec gnome-control-center --network"
+
+[[block]]
+block = "temperature"
+format = "$icon|{$max|}"
+format_alt = "$icon {$average$max|}"
+# [[block]]
+# block = "uptime"
+
+[[block]]
+block = "pacman"
+format = "$icon $pacman.eng(w:0)+$aur.eng(w:0)"
+format_singular = "$icon $pacman.eng(w:0)+$aur.eng(w:0)"
+format_up_to_date = ""
+if_command = "command -v yay && ping -c 1 -W 1 9.9.9.9"
+interval = 3600
+signal = 1
+# If a linux update is availble, but no ZFS package, it won't be possible to
+# actually perform a system upgrade, so we show a warning.
+warning_updates_regex = "(linux |linux-lts|linux-zen)"
+# If ZFS is available, we know that we can and should do an upgrade, so we show
+# the status as critical.
+aur_command = "yay -Qua"
+critical_updates_regex = "(zfs |zfs-lts)"
+error_format = "??"
