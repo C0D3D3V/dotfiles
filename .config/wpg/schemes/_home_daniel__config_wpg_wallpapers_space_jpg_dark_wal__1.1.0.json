@@ -1,0 +1,28 @@
+{
+    "wallpaper": "/home/daniel/.config/wpg/wallpapers/space.jpg",
+    "alpha": "90",
+
+    "special": {
+        "background": "#191b25",
+        "foreground": "#f7feff",
+        "cursor": "#f7feff"
+    },
+    "colors": {
+        "color0": "#191b25",
+        "color1": "#da614f",
+        "color2": "#b95e7f",
+        "color3": "#ffb967",
+        "color4": "#786abf",
+        "color5": "#b6709f",
+        "color6": "#8b64a7",
+        "color7": "#c5cbec",
+        "color8": "#2d3043",
+        "color9": "#ff6d50",
+        "color10": "#fa6499",
+        "color11": "#ffee6d",
+        "color12": "#8972ff",
+        "color13": "#f87ad0",
+        "color14": "#b16ce2",
+        "color15": "#f7feff"
+    }
+}
