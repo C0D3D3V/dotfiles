@@ -1,0 +1,8 @@
+[filter "head"]
+clean = head -n 2
+
+[filter "null"]
+clean = cat >/dev/null
+
+[filter "gitglobal"]
+clean = sed -e 's/\\(name = \\).*/\\1FIXME: your username/' -e 's/\\(email = \\).*/\\1FIXME: your email/' -e 's/\\(signingKey = \\).*/\\1FIXME: your signing key (optional)/'
