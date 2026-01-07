@@ -40,7 +40,7 @@ cmd = "~/.config/i3/mute-mics.zsh"
 [[block]]
 block = "backlight"
 # invert_icons = true
-misisng_format = ""
+missing_format = ""
 
 [[block]]
 block = "battery"
