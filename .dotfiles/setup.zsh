@@ -29,6 +29,7 @@ else
   cfg checkout
   cfg config status.showUntrackedFiles no
   cfg submodule update --init --recursive --jobs 8
+  cfg config include.path "~/.dotfiles/dotfiles-git-config"
 fi
 
 if [ -d "$HOME/.vim_runtime" ] && [ "$(ls -A "$HOME/.vim_runtime" 2>/dev/null | wc -l)" -gt 0 ]; then
