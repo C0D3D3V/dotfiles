@@ -50,6 +50,7 @@ driver = "upower"
 # full_format = "{$percentage} {$power}"
 # full_threshold = 99
 full_format = ""
+empty_format = ""
 missing_format = ""
  
 [[block]]
