@@ -9,5 +9,5 @@
 .config/rofi/themes/colors/wpgtk.rasi filter=head
 
 # qt allways changing settings
-~/.config/qt6ct/qt6ct.conf filter=geometry
-~/.config/qt5ct/qt5ct.conf filter=geometry
+.config/qt6ct/qt6ct.conf filter=geometry
+.config/qt5ct/qt5ct.conf filter=geometry
