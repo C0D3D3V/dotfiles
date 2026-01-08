@@ -8,4 +8,4 @@ clean = cat >/dev/null
 clean = sed -e 's/\\(name = \\).*/\\1FIXME: your username/' -e 's/\\(email = \\).*/\\1FIXME: your email/' -e 's/\\(signingKey = \\).*/\\1FIXME: your signing key (optional)/'
 
 [filter "geometry"]
-clean = sed '/^geometry=/d'
+clean = "sed -e '/^\\[QSSEditor\\]/,/^$/d; /^\\[SettingsWindow\\]/,/^$/d'"
