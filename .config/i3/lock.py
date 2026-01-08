@@ -30,10 +30,13 @@ class Locker:
             self.notifications_props = dbus.Interface(notifications, 'org.freedesktop.DBus.Properties')
 
         if self.secrets_props is None or refresh is True:
-            secrets = dbus.SessionBus().get_object(
-                'org.freedesktop.secrets', '/org/freedesktop/secrets/aliases/default'
-            )
-            self.secrets_props = dbus.Interface(secrets, 'org.freedesktop.DBus.Properties')
+            try:
+                secrets = dbus.SessionBus().get_object(
+                    'org.freedesktop.secrets', '/org/freedesktop/secrets/aliases/default'
+                )
+                self.secrets_props = dbus.Interface(secrets, 'org.freedesktop.DBus.Properties')
+            except:
+                logging.warning('No keyring found')
 
     def run(self):
         DBusGMainLoop(set_as_default=True)
@@ -74,11 +77,15 @@ class Locker:
     def signal_handler_secretservice(self, *args, **kwargs):
         if kwargs['member'] == 'CollectionChanged':
             self.set_dbus_props(refresh=True)
-            try:
-                locked = bool(self.secrets_props.GetAll('org.freedesktop.Secret.Collection')['Locked'])
-            except dbus.exceptions.DBusException:
-                logging.warning('Keyring not available')
-                locked = True
+            if self.secrets_props:
+                try:
+                    locked = bool(self.secrets_props.GetAll('org.freedesktop.Secret.Collection')['Locked'])
+                except dbus.exceptions.DBusException:
+                    logging.warning('Keyring not available')
+                    locked = True
+            else:
+                logging.warning('Keyring not available, not locking it')
+
             logging.info(f'Keyring locked: {locked}')
 
             if locked is True:
