@@ -146,6 +146,20 @@ class Locker:
 
         self.locked_time = time.time()
 
+        # result = self.create_lockscreen_img();
+
+        self.set_dbus_props()
+        self.notifications_paused_before = bool(self.notifications_props.GetAll('org.dunstproject.cmd0')['paused'])
+
+        # if notifications are on then pause them
+        if self.notifications_paused_before is False:
+            self.notifications_props.Set('org.dunstproject.cmd0', 'paused', True)
+            logging.info('paused notifications')
+
+        # threading.Thread(target=self.i3lock, args=(result,)).start()
+        threading.Thread(target=self.betterlockscreen).start()
+
+    def create_lockscreen_img(self):
         sct = mss.mss()
 
         # take screenshot
@@ -173,18 +187,6 @@ class Locker:
                 )
                 # add lock icon to bg image
                 result.paste(icon, area, icon)
-
-        self.set_dbus_props()
-        self.notifications_paused_before = bool(self.notifications_props.GetAll('org.dunstproject.cmd0')['paused'])
-
-        # if notifications are on then pause them
-        if self.notifications_paused_before is False:
-            self.notifications_props.Set('org.dunstproject.cmd0', 'paused', True)
-            logging.info('paused notifications')
-
-        threading.Thread(target=self.i3lock, args=(result,)).start()
-        # threading.Thread(target=self.betterlockscreen).start()
-
 
 logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', level=logging.DEBUG, datefmt='%Y-%m-%d %H:%M:%S')
 logging.info('Starting')
