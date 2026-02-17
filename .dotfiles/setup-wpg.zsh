@@ -42,7 +42,13 @@ download_wallpaper https://wallpaperaccess.com/full/1582719.jpg panda.jpg
  
 if command -v wpg >/dev/null; then
   echo "Set wallpaper"
-  wpg -a pyramid.jpg
+  wpg -s pyramid.jpg
 fi
+
+if command -v betterlockscreen >/dev/null; then
+  echo "Set lockscreen wallpaper"
+  betterlockscreen -u ~/.config/wallpapers/space.jpg
+fi
+
 
 echo "Run lxappearance to set the GTK and icon theme"
