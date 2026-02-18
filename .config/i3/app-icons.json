@@ -4,6 +4,7 @@
   "^7zfm$": "file-zipper",
   "^alacritty$": "terminal",
   "^pgadmin4$": "database",
+  "^Seahorse$": "key",
   "^jetbrains-pycharm-ce$": "python",
   "^Anki$": "graduation-cap",
   "^teams-for-linux$": "people-group",
